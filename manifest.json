@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Skool Layout Fix",
+  "version": "0.1.0",
+  "description": "Makes Skool course pages use a desktop-friendly layout.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.skool.com/*",
+        "https://skool.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

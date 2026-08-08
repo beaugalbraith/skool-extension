@@ -1,0 +1,327 @@
+html.slf-root body {
+  --slf-sidebar-width: 420px;
+  --slf-sidebar-collapsed-width: 72px;
+  --slf-layout-gap: 24px;
+  --slf-page-max-width: 2100px;
+  --slf-video-max-width: 1500px;
+  --slf-video-aspect-ratio: 16 / 9;
+}
+
+#slf-debug-badge {
+  position: fixed !important;
+  right: 16px !important;
+  bottom: 16px !important;
+  z-index: 2147483647 !important;
+  padding: 8px 12px !important;
+  border-radius: 999px !important;
+  background: #16a34a !important;
+  color: #ffffff !important;
+  font: 12px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+}
+
+#slf-sidebar-toggle {
+  position: fixed !important;
+  left: 20px !important;
+  bottom: 16px !important;
+  z-index: 2147483647 !important;
+  width: 44px !important;
+  height: 44px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #2563eb !important;
+  color: #ffffff !important;
+  font: 700 20px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  cursor: pointer !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+}
+
+html.slf-root body * {
+  box-sizing: border-box;
+}
+
+/*
+  Known Skool classroom sidebar structure from user-provided DOM:
+  .sc-4fca386d-11 > .sc-4fca386d-13
+*/
+html.slf-root body .sc-4fca386d-11 {
+  width: var(--slf-sidebar-width) !important;
+  min-width: var(--slf-sidebar-width) !important;
+  max-width: var(--slf-sidebar-width) !important;
+  align-self: flex-start !important;
+  position: sticky !important;
+  top: 16px !important;
+  left: 0 !important;
+  max-height: calc(100vh - 32px) !important;
+  overflow: auto !important;
+}
+
+html.slf-root body .sc-4fca386d-13 {
+  width: 100% !important;
+}
+
+html.slf-root body .sc-4fca386d-10 {
+  width: 100% !important;
+}
+
+html.slf-root body .sc-fa2fe681-1 {
+  display: block !important;
+  width: 100% !important;
+}
+
+html.slf-root body .sc-4fca386d-6.iHujMc,
+html.slf-root body .sc-4fca386d-6.iTbwve,
+html.slf-root body .sc-4fca386d-6.dDdnUo {
+  width: 100% !important;
+}
+
+/*
+  Conservative page widening until we have the main lesson container DOM.
+*/
+html.slf-root body main,
+html.slf-root body [role="main"] {
+  width: min(98vw, var(--slf-page-max-width)) !important;
+  max-width: var(--slf-page-max-width) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+html.slf-root body .slf-classroom-layout {
+  display: grid !important;
+  grid-template-columns: minmax(380px, var(--slf-sidebar-width)) minmax(1100px, 1fr) !important;
+  gap: 32px !important;
+  align-items: start !important;
+  width: min(98vw, 2050px) !important;
+  max-width: 2050px !important;
+  margin-left: 24px !important;
+  margin-right: auto !important;
+}
+
+html.slf-root body .sc-ec7c44aa-1.jTPFQt {
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+html.slf-root body .sc-ec7c44aa-4.jcPhTI {
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+html.slf-root body .slf-main-column {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+html.slf-root body .slf-sidebar-column {
+  width: var(--slf-sidebar-width) !important;
+  min-width: var(--slf-sidebar-width) !important;
+  max-width: var(--slf-sidebar-width) !important;
+}
+
+html.slf-root body.slf-sidebar-collapsed .slf-classroom-layout {
+  grid-template-columns: 1fr !important;
+  width: min(96vw, 1700px) !important;
+  max-width: 1700px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+html.slf-root body.slf-sidebar-collapsed .slf-sidebar-column {
+  display: none !important;
+}
+
+html.slf-root body.slf-sidebar-collapsed .slf-main-column {
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+html.slf-root body.slf-sidebar-collapsed .slf-lesson-stack {
+  max-width: 1500px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  align-items: center !important;
+}
+
+html.slf-root body.slf-sidebar-collapsed .slf-video,
+html.slf-root body.slf-sidebar-collapsed .video-player-fresh_playerAndRightPanelWrapper_Ear,
+html.slf-root body.slf-sidebar-collapsed .tiptap.ProseMirror.skool-editor2 {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+html.slf-root body.slf-sidebar-collapsed .tiptap.ProseMirror.skool-editor2 {
+  width: min(100%, 1200px) !important;
+}
+
+html.slf-root body .slf-lesson-stack {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 24px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 1500px !important;
+}
+
+/*
+  Loom player inside Skool lesson pages.
+  Goal for phase 2:
+  - make the player large
+  - prevent the empty in-player right panel from stealing width
+  - keep controls/reactions working by resizing the native wrappers rather than replacing layout
+*/
+html.slf-root body .video-player-fresh_playerAndRightPanelWrapper_Ear {
+  display: block !important;
+  width: 100% !important;
+  max-width: var(--slf-video-max-width) !important;
+}
+
+html.slf-root body .video-player-fresh_playerWithBottomBarWrapper_Ws7,
+html.slf-root body .video-player-fresh_playerWrapper_Zvj,
+html.slf-root body .video-container.players_videoContainerWrapper_z_J,
+html.slf-root body .LayersContainer.VideoLayersContainer,
+html.slf-root body .video-player_wrapper_BNP {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+html.slf-root body .slf-video {
+  max-width: var(--slf-video-max-width) !important;
+}
+
+html.slf-root body .video-container.players_videoContainerWrapper_z_J {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+html.slf-root body .components_wrapper_cKT,
+html.slf-root body #LoomShakaVideoPlayer,
+html.slf-root body .video-player_video_o6A {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+html.slf-root body .components_wrapper_cKT,
+html.slf-root body .video-container.players_videoContainerWrapper_z_J,
+html.slf-root body .LayersContainer.VideoLayersContainer {
+  aspect-ratio: var(--slf-video-aspect-ratio) !important;
+}
+
+html.slf-root body #LoomShakaVideoPlayer,
+html.slf-root body .video-player_video_o6A,
+html.slf-root body .components_animatedPreviewVideo_Miy,
+html.slf-root body .components_staticThumbnail_vvH {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
+
+html.slf-root body .in-player-right-panel_transition_FVb,
+html.slf-root body .in-player-right-panel_rightPanelWrapper_WGr {
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  flex: 0 0 0 !important;
+}
+
+html.slf-root body .in-player-right-panel_rightPanelContent_q3c,
+html.slf-root body .right-panel-resizer_resizerLine_SHD {
+  display: none !important;
+}
+
+html.slf-root body .transportSection.css-1jkzo3w,
+html.slf-root body .persistent-reaction-bar_layout_GTC {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/*
+  Lesson text content from user-provided DOM:
+  .tiptap.ProseMirror.skool-editor2
+*/
+html.slf-root body .tiptap.ProseMirror.skool-editor2 {
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin-top: 0 !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  font-size: 17px !important;
+  line-height: 1.65 !important;
+}
+
+html.slf-root body .tiptap.ProseMirror.skool-editor2 h1,
+html.slf-root body .tiptap.ProseMirror.skool-editor2 h2,
+html.slf-root body .tiptap.ProseMirror.skool-editor2 h3 {
+  line-height: 1.25 !important;
+  margin-top: 1.4em !important;
+  margin-bottom: 0.6em !important;
+}
+
+html.slf-root body .tiptap.ProseMirror.skool-editor2 p,
+html.slf-root body .tiptap.ProseMirror.skool-editor2 ul,
+html.slf-root body .tiptap.ProseMirror.skool-editor2 ol {
+  margin-bottom: 1em !important;
+}
+
+html.slf-root body .tiptap.ProseMirror.skool-editor2 ul,
+html.slf-root body .tiptap.ProseMirror.skool-editor2 ol {
+  padding-left: 1.5em !important;
+}
+
+html.slf-root body iframe,
+html.slf-root body video {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+@media (max-width: 1200px) {
+  #slf-sidebar-toggle {
+    left: 16px !important;
+  }
+
+  html.slf-root body .sc-ec7c44aa-1.jTPFQt {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  html.slf-root body .sc-ec7c44aa-4.jcPhTI {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  html.slf-root body .slf-classroom-layout {
+    grid-template-columns: 1fr !important;
+    width: min(98vw, 1200px) !important;
+    margin-left: auto !important;
+  }
+
+  html.slf-root body .slf-sidebar {
+    position: relative !important;
+    top: 0 !important;
+    max-height: none !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+  }
+
+  html.slf-root body .slf-sidebar-column {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+  }
+
+  html.slf-root body.slf-sidebar-collapsed .slf-classroom-layout {
+    grid-template-columns: 1fr !important;
+  }
+}
