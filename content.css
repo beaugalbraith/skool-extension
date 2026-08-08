@@ -3,6 +3,7 @@ html.slf-root body {
   --slf-layout-gap: 24px;
   --slf-page-max-width: 2100px;
   --slf-video-max-width: 1500px;
+  --slf-text-max-width: 1200px;
   --slf-video-aspect-ratio: 16 / 9;
   --slf-toggle-bg: rgba(37, 99, 235, 0.92);
   --slf-toggle-border: rgba(255, 255, 255, 0.12);
@@ -159,7 +160,7 @@ html.slf-root body.slf-sidebar-collapsed .tiptap.ProseMirror.skool-editor2 {
 }
 
 html.slf-root body.slf-sidebar-collapsed .tiptap.ProseMirror.skool-editor2 {
-  width: min(100%, 1200px) !important;
+  width: min(100%, var(--slf-text-max-width)) !important;
 }
 
 html.slf-root body .slf-lesson-stack {
@@ -252,7 +253,7 @@ html.slf-root body .persistent-reaction-bar_layout_GTC {
 */
 html.slf-root body .tiptap.ProseMirror.skool-editor2 {
   width: 100% !important;
-  max-width: 1200px !important;
+  max-width: var(--slf-text-max-width) !important;
   margin-top: 0 !important;
   margin-left: 0 !important;
   margin-right: auto !important;

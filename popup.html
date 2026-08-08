@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Skool Classroom Desktop</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main class="popup">
+      <h1>Skool Classroom Desktop</h1>
+      <p class="subtitle">Tune the desktop layout without editing code.</p>
+
+      <section class="field">
+        <label for="sidebarWidth">Sidebar width</label>
+        <div class="control-row">
+          <input id="sidebarWidth" type="range" min="320" max="520" step="10">
+          <output id="sidebarWidthValue" for="sidebarWidth"></output>
+        </div>
+      </section>
+
+      <section class="field">
+        <label for="videoMaxWidth">Video width</label>
+        <div class="control-row">
+          <input id="videoMaxWidth" type="range" min="1100" max="1700" step="20">
+          <output id="videoMaxWidthValue" for="videoMaxWidth"></output>
+        </div>
+      </section>
+
+      <section class="field">
+        <label for="textMaxWidth">Text width</label>
+        <div class="control-row">
+          <input id="textMaxWidth" type="range" min="900" max="1400" step="20">
+          <output id="textMaxWidthValue" for="textMaxWidth"></output>
+        </div>
+      </section>
+
+      <section class="actions">
+        <button id="resetButton" type="button" class="secondary">Reset defaults</button>
+      </section>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

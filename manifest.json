@@ -1,8 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "Skool Layout Fix",
-  "version": "0.1.0",
-  "description": "Makes Skool course pages use a desktop-friendly layout.",
+  "name": "Skool Classroom Desktop",
+  "version": "0.2.0",
+  "description": "Desktop-friendly layout fixes and sidebar controls for Skool classroom pages.",
+  "permissions": [
+    "storage"
+  ],
+  "action": {
+    "default_title": "Skool Classroom Desktop",
+    "default_popup": "popup.html"
+  },
   "content_scripts": [
     {
       "matches": [

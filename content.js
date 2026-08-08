@@ -1,9 +1,51 @@
 const ROOT_CLASS = "slf-root";
 const TOGGLE_ID = "slf-sidebar-toggle";
 const STORAGE_KEY = "slf-sidebar-collapsed";
+const SETTINGS_KEY = "slf-settings";
 const VIDEO_SELECTOR = ".video-player-fresh_playerAndRightPanelWrapper_Ear";
 const TEXT_SELECTOR = ".tiptap.ProseMirror.skool-editor2";
 const SIDEBAR_SELECTOR = ".sc-4fca386d-11";
+const DEFAULT_SETTINGS = {
+  sidebarWidth: 420,
+  videoMaxWidth: 1500,
+  textMaxWidth: 1200
+};
+
+function getStorageArea() {
+  if (globalThis.chrome?.storage?.local) {
+    return chrome.storage.local;
+  }
+
+  return null;
+}
+
+function storageGet(key) {
+  const area = getStorageArea();
+  if (!area) {
+    try {
+      const raw = window.localStorage.getItem(key);
+      return Promise.resolve(raw ? JSON.parse(raw) : null);
+    } catch {
+      return Promise.resolve(null);
+    }
+  }
+
+  return new Promise((resolve) => {
+    area.get([key], (result) => resolve(result[key] ?? null));
+  });
+}
+
+function storageSet(key, value) {
+  const area = getStorageArea();
+  if (!area) {
+    window.localStorage.setItem(key, JSON.stringify(value));
+    return Promise.resolve();
+  }
+
+  return new Promise((resolve) => {
+    area.set({ [key]: value }, () => resolve());
+  });
+}
 
 function markLayout() {
   document.documentElement.classList.add(ROOT_CLASS);
@@ -11,8 +53,8 @@ function markLayout() {
   document.body.setAttribute("data-slf-active", "true");
 }
 
-function applyCollapsedState() {
-  const collapsed = window.localStorage.getItem(STORAGE_KEY) === "true";
+async function applyCollapsedState() {
+  const collapsed = (await storageGet(STORAGE_KEY)) === true;
   document.body.classList.toggle("slf-sidebar-collapsed", collapsed);
 
   const button = document.getElementById(TOGGLE_ID);
@@ -33,15 +75,25 @@ function ensureToggle() {
     button = document.createElement("button");
     button.id = TOGGLE_ID;
     button.type = "button";
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
       const collapsed = document.body.classList.contains("slf-sidebar-collapsed");
-      window.localStorage.setItem(STORAGE_KEY, collapsed ? "false" : "true");
-      applyCollapsedState();
+      await storageSet(STORAGE_KEY, !collapsed);
+      await applyCollapsedState();
     });
     document.body.appendChild(button);
   }
+}
 
-  applyCollapsedState();
+async function applySettings() {
+  const stored = await storageGet(SETTINGS_KEY);
+  const settings = {
+    ...DEFAULT_SETTINGS,
+    ...(stored && typeof stored === "object" ? stored : {})
+  };
+
+  document.documentElement.style.setProperty("--slf-sidebar-width", `${settings.sidebarWidth}px`);
+  document.documentElement.style.setProperty("--slf-video-max-width", `${settings.videoMaxWidth}px`);
+  document.documentElement.style.setProperty("--slf-text-max-width", `${settings.textMaxWidth}px`);
 }
 
 function getAncestors(node) {
@@ -139,11 +191,12 @@ function markContainers() {
   }
 }
 
-function boot() {
+async function boot() {
   markLayout();
   ensureToggle();
   markContainers();
-  applyCollapsedState();
+  await applySettings();
+  await applyCollapsedState();
 }
 
 boot();
@@ -156,3 +209,15 @@ observer.observe(document.documentElement, {
   childList: true,
   subtree: true
 });
+
+if (globalThis.chrome?.storage?.onChanged) {
+  chrome.storage.onChanged.addListener((changes, areaName) => {
+    if (areaName !== "local") {
+      return;
+    }
+
+    if (changes[SETTINGS_KEY] || changes[STORAGE_KEY]) {
+      boot();
+    }
+  });
+}
