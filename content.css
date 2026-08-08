@@ -1,23 +1,11 @@
 html.slf-root body {
   --slf-sidebar-width: 420px;
-  --slf-sidebar-collapsed-width: 72px;
   --slf-layout-gap: 24px;
   --slf-page-max-width: 2100px;
   --slf-video-max-width: 1500px;
   --slf-video-aspect-ratio: 16 / 9;
-}
-
-#slf-debug-badge {
-  position: fixed !important;
-  right: 16px !important;
-  bottom: 16px !important;
-  z-index: 2147483647 !important;
-  padding: 8px 12px !important;
-  border-radius: 999px !important;
-  background: #16a34a !important;
-  color: #ffffff !important;
-  font: 12px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+  --slf-toggle-bg: rgba(37, 99, 235, 0.92);
+  --slf-toggle-border: rgba(255, 255, 255, 0.12);
 }
 
 #slf-sidebar-toggle {
@@ -25,15 +13,27 @@ html.slf-root body {
   left: 20px !important;
   bottom: 16px !important;
   z-index: 2147483647 !important;
-  width: 44px !important;
+  min-width: 64px !important;
   height: 44px !important;
-  border: 0 !important;
+  padding: 0 14px !important;
+  border: 1px solid var(--slf-toggle-border) !important;
   border-radius: 999px !important;
-  background: #2563eb !important;
+  background: var(--slf-toggle-bg) !important;
   color: #ffffff !important;
-  font: 700 20px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font: 600 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  letter-spacing: 0.01em !important;
   cursor: pointer !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+  backdrop-filter: blur(10px) !important;
+  transition: transform 120ms ease, background 120ms ease !important;
+}
+
+#slf-sidebar-toggle:hover {
+  background: rgba(59, 130, 246, 0.96) !important;
+}
+
+#slf-sidebar-toggle:active {
+  transform: translateY(1px) !important;
 }
 
 html.slf-root body * {

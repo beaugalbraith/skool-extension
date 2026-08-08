@@ -1,5 +1,4 @@
 const ROOT_CLASS = "slf-root";
-const BADGE_ID = "slf-debug-badge";
 const TOGGLE_ID = "slf-sidebar-toggle";
 const STORAGE_KEY = "slf-sidebar-collapsed";
 const VIDEO_SELECTOR = ".video-player-fresh_playerAndRightPanelWrapper_Ear";
@@ -12,24 +11,13 @@ function markLayout() {
   document.body.setAttribute("data-slf-active", "true");
 }
 
-function ensureBadge() {
-  if (!document.body || document.getElementById(BADGE_ID)) {
-    return;
-  }
-
-  const badge = document.createElement("div");
-  badge.id = BADGE_ID;
-  badge.textContent = "Skool Layout Fix active";
-  document.body.appendChild(badge);
-}
-
 function applyCollapsedState() {
   const collapsed = window.localStorage.getItem(STORAGE_KEY) === "true";
   document.body.classList.toggle("slf-sidebar-collapsed", collapsed);
 
   const button = document.getElementById(TOGGLE_ID);
   if (button) {
-    button.textContent = collapsed ? "→" : "←";
+    button.textContent = collapsed ? "Show" : "Hide";
     button.setAttribute("aria-label", collapsed ? "Expand sidebar" : "Collapse sidebar");
     button.setAttribute("title", collapsed ? "Expand sidebar" : "Collapse sidebar");
   }
@@ -153,15 +141,15 @@ function markContainers() {
 
 function boot() {
   markLayout();
-  ensureBadge();
   ensureToggle();
   markContainers();
+  applyCollapsedState();
 }
 
 boot();
 
 const observer = new MutationObserver(() => {
-  markLayout();
+  boot();
 });
 
 observer.observe(document.documentElement, {
